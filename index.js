@@ -13,11 +13,15 @@ const buyItem = (e) => {
   const price = li.querySelector(".span-price").textContent;
   let qty = li.querySelector(".span-qty").textContent;
   const uid = li.id;
+  let count = 0;
   if (ele.classList.contains("1")) {
+    count = 1;
     qty -= 1;
   } else if (ele.classList.contains("2")) {
+    count = 2;
     qty -= 2;
   } else if (ele.classList.contains("3")) {
+    count = 3;
     qty -= 3;
   }
   let itemDetails = {
@@ -26,23 +30,34 @@ const buyItem = (e) => {
     price: price,
     qty: qty,
   };
-  axios
-    .put(`${baseURL}/${uid}`, itemDetails)
-    .then(() => {
-      getItems();
-      msg.textContent = `Bought ${name} of qty: ${qty}`;
-      msg.className = "success";
-      setTimeout(() => {
-        msg.remove("success");
-      }, 3000);
-    })
-    .catch((err) => {
-      msg.textContent = `Something went wrong: ${err.message}`;
-      msg.className = "error";
-      setTimeout(() => {
-        msg.remove("error");
-      }, 3000);
-    });
+  if (qty >= 0) {
+    axios
+      .put(`${baseURL}/${uid}`, itemDetails)
+      .then(() => {
+        getItems();
+        msg.textContent = `Bought ${name} of qty: ${count}`;
+        msg.className = "success";
+        setTimeout(() => {
+          msg.className = "";
+          msg.textContent = "";
+        }, 3000);
+      })
+      .catch((err) => {
+        msg.textContent = `Something went wrong: ${err.message}`;
+        msg.className = "error";
+        setTimeout(() => {
+          msg.className = "";
+          msg.textContent = "";
+        }, 3000);
+      });
+  } else {
+    msg.textContent = `Low stock please order or buy less`;
+    msg.className = "error";
+    setTimeout(() => {
+      msg.className = "";
+      msg.textContent = "";
+    }, 3000);
+  }
 };
 
 const showItemList = (data) => {
@@ -106,12 +121,22 @@ const showItemList = (data) => {
 };
 
 const getItems = () => {
-  axios.get(baseURL).then((res) => {
-    itemList.replaceChildren();
-    res.data.forEach((item) => {
-      showItemList(item);
+  axios
+    .get(baseURL)
+    .then((res) => {
+      itemList.replaceChildren();
+      res.data.forEach((item) => {
+        showItemList(item);
+      });
+    })
+    .catch((err) => {
+      msg.textContent = `Something went wrong: ${err.message}`;
+      msg.className = "error";
+      setTimeout(() => {
+        msg.className = "";
+        msg.textContent = "";
+      }, 3000);
     });
-  });
 };
 
 document.addEventListener("DOMContentLoaded", getItems);
@@ -132,7 +157,8 @@ const submitHandler = (e) => {
     msg.textContent = "Please provide all details";
     msg.className = "error";
     setTimeout(() => {
-      msg.remove("error");
+      msg.className = "";
+      msg.textContent = "";
     }, 3000);
   } else {
     let itemDetails = {
@@ -148,14 +174,16 @@ const submitHandler = (e) => {
         msg.textContent = "Item added successfully";
         msg.className = "success";
         setTimeout(() => {
-          msg.remove("success");
+          msg.className = "";
+          msg.textContent = "";
         }, 3000);
       })
       .catch((err) => {
         msg.textContent = `Something went wrong: ${err.message}`;
         msg.className = "error";
         setTimeout(() => {
-          msg.remove("error");
+          msg.className = "";
+          msg.textContent = "";
         }, 3000);
       });
 
