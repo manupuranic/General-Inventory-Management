@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(242, 224, 255);
+  font-size: 1.1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.heading {
+  display: block;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 1.2rem;
+  color: blueviolet;
+}
+
+.success {
+  display: block;
+  margin-left: 30%;
+  text-align: center;
+  margin-top: 5px;
+  width: 40%;
+  color: white;
+  background-color: green;
+}
+
+.error {
+  display: block;
+  margin-left: 30%;
+  text-align: center;
+  margin-top: 5px;
+  width: 40%;
+  color: white;
+  background-color: orangered;
+}
+
+.container {
+  background-color: white;
+  margin-top: 25px;
+  padding: 2%;
+  margin-bottom: 3%;
+}
+
+.submit {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+}
+
+.buy {
+  margin-left: 3px;
+  float: right;
+}
+
+.span-name {
+  font-size: 1.5rem;
+  color: blueviolet;
+  display: block;
+}
+
+.span-desc {
+  display: block;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.span-price {
+  font-size: 1.2rem;
+  color: green;
+}
+.span-qty {
+  font-size: 1.2rem;
+  color: rgb(245, 122, 35);
+}
+
+.qty-label {
+  margin-left: 2%;
+}
